@@ -1,0 +1,170 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "Analog values",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "A0",
+						"size": "regular",
+						"value": "datasources[\"sp\"][\"a0\"]",
+						"animate": false
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "A1",
+						"size": "regular",
+						"value": "datasources[\"sp\"][\"a1\"]",
+						"animate": false
+					}
+				}
+			]
+		},
+		{
+			"title": "Control",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "switchbutton",
+					"settings": {
+						"title": "LED",
+						"type": "serialcom",
+						"host": "/dev/ttyACM0",
+						"variable": "datasources[\"sp\"][\"onoff\"]",
+						"yestext": "ON",
+						"notext": "OFF",
+						"initialstate": false
+					}
+				},
+				{
+					"type": "slider",
+					"settings": {
+						"title": "Value",
+						"type": "serialcom",
+						"host": "/dev/ttyACM0",
+						"variable": "datasources[\"sp\"][\"val\"]",
+						"initialvalue": 0,
+						"min": 0,
+						"max": 10,
+						"resolution": 1,
+						"resetvalue": 0,
+						"resetcaption": "Reset"
+					}
+				}
+			]
+		},
+		{
+			"title": "Log",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "textarea",
+					"settings": {
+						"nblines_window": "10",
+						"value": [
+							"datasources[\"sp\"][\"_rawdata\"]"
+						]
+					}
+				}
+			]
+		},
+		{
+			"title": "Analog values",
+			"width": 1,
+			"row": {
+				"3": 9
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "plot",
+					"settings": {
+						"xaxis": "seconds_from_start",
+						"time_window": 10,
+						"value": [
+							"datasources[\"sp\"][\"a0\"]",
+							"datasources[\"sp\"][\"a1\"]"
+						],
+						"y_axis_min_range": "0,255",
+						"include_legend": true,
+						"legendStr": "A0,A1"
+					}
+				}
+			]
+		},
+		{
+			"title": "Value",
+			"width": 1,
+			"row": {
+				"3": 9,
+				"4": 9
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "plot",
+					"settings": {
+						"xaxis": "seconds_from_start",
+						"time_window": 10,
+						"value": [
+							"datasources[\"sp\"][\"sinus\"]"
+						],
+						"y_axis_min_range": "0,10",
+						"include_legend": false
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "sp",
+			"type": "serialport",
+			"settings": {
+				"port": "/dev/ttyACM0",
+				"baudrate": 9600,
+				"variables_to_read": "sinus,a0,a1",
+				"variables_to_send": "onoff,val",
+				"refresh_rate": "100",
+				"separator": ",",
+				"checksum": "none"
+			}
+		}
+	],
+	"columns": 3
+}

@@ -1,0 +1,116 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "GPIO2 Control",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "switchbutton",
+					"settings": {
+						"title": "GPIO2 Switch",
+						"datasourcename": "ws",
+						"variable": "datasources[\"ws\"][\"onoff\"]",
+						"yestext": "ON",
+						"notext": "OFF",
+						"initialstate": false
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "GPIO2",
+						"size": "regular",
+						"value": "datasources[\"ws\"][\"gpio2\"]",
+						"animate": false
+					}
+				}
+			]
+		},
+		{
+			"title": "Value Control",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "slider",
+					"settings": {
+						"title": "Value to send",
+						"datasourcename": "ws",
+						"variable": "datasources[\"ws\"][\"val\"]",
+						"initialvalue": 0,
+						"min": 0,
+						"max": 10,
+						"resolution": 1,
+						"resetvalue": 0,
+						"resetcaption": "Reset"
+					}
+				},
+				{
+					"type": "plot",
+					"settings": {
+						"title": "Returned value",
+						"xaxis": "seconds_from_start",
+						"time_window": 10,
+						"value": [
+							"datasources[\"ws\"][\"retval\"]"
+						],
+						"y_axis_min_range": "0,10",
+						"legendStr": "Value",
+						"height": 3
+					}
+				}
+			]
+		},
+		{
+			"title": "Log",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "textarea",
+					"settings": {
+						"nblines_window": "10",
+						"value": [
+							"datasources[\"ws\"][\"retval\"]",
+							"datasources[\"ws\"][\"gpio2\"]"
+						]
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "ws",
+			"type": "websocket",
+			"settings": {
+				"host": "ws://192.168.4.1",
+				"variables_to_send": "onoff,val",
+				"refresh_rate": "500"
+			}
+		}
+	],
+	"columns": 3
+}

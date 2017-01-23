@@ -1,0 +1,167 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "LED and Val Control",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "switchbutton",
+					"settings": {
+						"title": "LED",
+						"datasourcename": "ws",
+						"variable": "datasources[\"ws\"][\"onoff\"]",
+						"yestext": "ON",
+						"notext": "OFF",
+						"initialstate": false
+					}
+				},
+				{
+					"type": "slider",
+					"settings": {
+						"title": "Value",
+						"datasourcename": "ws",
+						"variable": "datasources[\"ws\"][\"val\"]",
+						"initialvalue": 0,
+						"min": 0,
+						"max": 10,
+						"resolution": 1,
+						"resetvalue": 0,
+						"resetcaption": "Reset"
+					}
+				}
+			]
+		},
+		{
+			"title": "Log",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "textarea",
+					"settings": {
+						"nblines_window": "10",
+						"value": [
+							"datasources[\"ws\"][\"retval\"]",
+							"datasources[\"ws\"][\"multA0\"]"
+						]
+					}
+				}
+			]
+		},
+		{
+			"title": "Multiplication control",
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "select",
+					"settings": {
+						"datasourcename": "ws",
+						"variable": "datasources[\"ws\"][\"mult\"]",
+						"listcaptions": "Mult. by 1, Mult. by 2, Mult. by 3",
+						"listvalues": "1,2,3"
+					}
+				}
+			]
+		},
+		{
+			"title": "Analog value",
+			"width": 1,
+			"row": {
+				"3": 5
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Multiplied A0",
+						"size": "regular",
+						"value": "datasources[\"ws\"][\"multA0\"]",
+						"animate": false
+					}
+				},
+				{
+					"type": "plot",
+					"settings": {
+						"xaxis": "seconds_from_start",
+						"time_window": 10,
+						"value": [
+							"datasources[\"ws\"][\"multA0\"]"
+						],
+						"y_axis_min_range": "0,10",
+						"include_legend": true,
+						"legendStr": "Multiplied A0",
+						"height": 3
+					}
+				}
+			]
+		},
+		{
+			"title": "Value",
+			"width": 1,
+			"row": {
+				"3": 9,
+				"4": 9
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "plot",
+					"settings": {
+						"xaxis": "seconds_from_start",
+						"time_window": 10,
+						"value": [
+							"datasources[\"ws\"][\"retval\"]"
+						],
+						"y_axis_min_range": "0,10",
+						"include_legend": true,
+						"legendStr": "Val",
+						"height": 3
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "ws",
+			"type": "websocket",
+			"settings": {
+				"host": "ws://192.168.4.1",
+				"variables_to_send": "onoff,val,mult",
+				"refresh_rate": "500"
+			}
+		}
+	],
+	"columns": 3
+}
