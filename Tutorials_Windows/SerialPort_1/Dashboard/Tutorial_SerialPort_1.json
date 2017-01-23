@@ -15,20 +15,30 @@
 			"col_width": 1,
 			"widgets": [
 				{
+					"type": "select",
+					"settings": {
+						"title": "Multiplication factor",
+						"datasourcename": "sp",
+						"variable": "datasources[\"sp\"][\"mult\"]",
+						"listcaptions": "Mult. by 1, Mult. by 2, Mult. by 3",
+						"listvalues": "1,2,3"
+					}
+				},
+				{
 					"type": "text_widget",
 					"settings": {
-						"title": "A0",
+						"title": "Multiplied A0",
 						"size": "regular",
-						"value": "datasources[\"sp\"][\"a0\"]",
+						"value": "datasources[\"sp\"][\"multA0\"]",
 						"animate": false
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
-						"title": "A1",
+						"title": "Multiplied A1",
 						"size": "regular",
-						"value": "datasources[\"sp\"][\"a1\"]",
+						"value": "datasources[\"sp\"][\"multA1\"]",
 						"animate": false
 					}
 				}
@@ -49,8 +59,7 @@
 					"type": "switchbutton",
 					"settings": {
 						"title": "LED",
-						"type": "serialcom",
-						"host": "COM24",
+						"datasourcename": "sp",
 						"variable": "datasources[\"sp\"][\"onoff\"]",
 						"yestext": "ON",
 						"notext": "OFF",
@@ -61,8 +70,7 @@
 					"type": "slider",
 					"settings": {
 						"title": "Value",
-						"type": "serialcom",
-						"host": "COM24",
+						"datasourcename": "sp",
 						"variable": "datasources[\"sp\"][\"val\"]",
 						"initialvalue": 0,
 						"min": 0,
@@ -97,7 +105,7 @@
 			]
 		},
 		{
-			"title": "Analog values",
+			"title": "Multiplied analog values",
 			"width": 1,
 			"row": {
 				"3": 9
@@ -113,12 +121,12 @@
 						"xaxis": "seconds_from_start",
 						"time_window": 10,
 						"value": [
-							"datasources[\"sp\"][\"a0\"]",
-							"datasources[\"sp\"][\"a1\"]"
+							"datasources[\"sp\"][\"multA0\"]",
+							"datasources[\"sp\"][\"multA1\"]"
 						],
 						"y_axis_min_range": "0,255",
 						"include_legend": true,
-						"legendStr": "A0,A1",
+						"legendStr": "Multiplied A0,Multiplied A1",
 						"height": 3
 					}
 				}
@@ -143,7 +151,7 @@
 						"xaxis": "seconds_from_start",
 						"time_window": 10,
 						"value": [
-							"datasources[\"sp\"][\"sinus\"]"
+							"datasources[\"sp\"][\"retval\"]"
 						],
 						"y_axis_min_range": "0,10",
 						"include_legend": false,
@@ -158,11 +166,11 @@
 			"name": "sp",
 			"type": "serialport",
 			"settings": {
-				"port": "COM24",
+				"port": "COM5",
 				"baudrate": 9600,
-				"variables_to_read": "sinus,a0,a1",
-				"variables_to_send": "onoff,val",
-				"refresh_rate": "100",
+				"variables_to_read": "retval,multA0,multA1",
+				"variables_to_send": "onoff,val,mult",
+				"refresh_rate": 1000,
 				"separator": ",",
 				"checksum": "none"
 			}
